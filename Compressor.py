@@ -18,6 +18,14 @@ def Compressor(x,Attack,Release,Make_Up_Gain,Ratio,Threshold,Width):
 
 
 # Testsginal
-x = Audio_DSP.Sinus(amp=1,f=3,fs=48000,t=3)
+amp = 1
+f = 3
+t = 3
+fs = 48000
+x_arange = np.arange(0,t,1/fs)
+x = amp * np.sin(2*np.pi*x_arange*f)
 
-plt.plot(x)
+fig, ax = plt.subplots(nrows=2,ncols=1,figsize=(6,7))
+ax[1].plot(x_arange,x)
+ax[1].set_xlabel("Amplitude in [s]")
+plt.show()
