@@ -84,7 +84,6 @@ ax.set_ylabel("Output $y_G$ in [dB]")
 ax.set_ylim(-50,0)
 ax.set_xlim(-50,0)
 ax.legend()
-plt.savefig("Characteristic.png")
 plt.close()
 
 
@@ -97,6 +96,7 @@ ax.legend()
 ax.set_xlabel("Time in [s]")
 ax.set_ylabel("Amplitude")
 plt.show()
+plt.close()
 
 sd.play(A,fs)
 sd.wait()
