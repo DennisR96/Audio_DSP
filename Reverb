@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Apr 15 21:21:22 2021
+
+@author: dennisrak
+"""
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.io.wavfile as wavfile
+import sounddevice as sd
+
+fs, data = wavfile.read("Snare1.wav")
+data = data[:,0]
+data = data / np.max(data)
+z = np.zeros(4800*5)
+data = np.concatenate((data,z))
+
+def AllPass(x,Gain,Delay):
+    g = Gain
+    m = Delay
+    y = np.zeros(len(x))
+    for n in range(0,len(x)):
+        y[n] = -g * x[n] + x[n-m] + g * y[n-m]
+    return y
+
+def CombFilter(x,Gain,Delay):
+    g = Gain
+    m = Delay
+    y = np.zeros(len(x))
+    for n in range(0,len(x)):
+        y[n] = x[n-m] + g * y[n-m]
+    return y
+
+
+def Reverb(x,Wet):
+    A = CombFilter(x,0.805,901)
+    B = CombFilter(x,0.827,778)
+    C = CombFilter(x,0.783,1011)
+    D = CombFilter(x,0.764,1123)
+    y = A + B + C + D 
+    y = AllPass(y, 0.7, 125)
+    y = AllPass(y, 0.7, 42)
+    y = AllPass(y, 0.7, 12)
+    y = Wet * y + x
+    return y
+
+y = Reverb(data,0.3)
+
+y = y / np.max(y)
+
+fig, ax = plt.subplots(nrows=2,ncols=1)
+ax[0].plot(data)
+ax[1].plot(y)
+
+sd.play(y)
+
