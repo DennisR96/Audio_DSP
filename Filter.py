@@ -1,6 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# All Pass
+def AllPass(x,Gain,Delay):
+    g = Gain
+    m = Delay
+    y = np.zeros(len(x))
+    for n in range(0,len(x)):
+        y[n] = -g * x[n] + x[n-m] + g * y[n-m]
+    return y
+
 # Canonical Filter
 def Canonical(x,fc,fs,Mode, Order,Q):
     K = np.tan(np.pi * fc / fs)
@@ -64,6 +73,14 @@ def Canonical(x,fc,fs,Mode, Order,Q):
         y[n] = b0 * xh[n] + b1 * xh[n-1] + b2 * xh[n-2]
     return y
 
+# Comb Filter
+def CombFilter(x,Gain,Delay):
+    g = Gain
+    m = Delay
+    y = np.zeros(len(x))
+    for n in range(0,len(x)):
+        y[n] = x[n-m] + g * y[n-m]
+    return y
 
 plt.magnitude_spectrum(x)
 plt.magnitude_spectrum(y)
