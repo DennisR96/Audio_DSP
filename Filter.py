@@ -1,30 +1,68 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def Filter(x):
-    # 6 - 9 kHz Bandpass
-    y = [0] * len(x)
-    b0 = 0.0101
-    b1 = 2.4354
-    b2 = 0.0202
-    b3 = 0
-    b4 = 0.0101
-
-    a1 = 2.4354
-    a2 = 3.1869
-    a3 = 2.0889
-    a4 = 0.7368
-
-    for n in range(4,len(x)):
-        y[n] = b0*x[n] - b2 * x[n-2] + b4 * x[n-4] + a1 * y[n-1] - a2*y[n-2] + a3*y[n-3] - a4*y[n-4]
+# Canonical Filter
+def Canonical(x,fc,fs,Mode, Order,Q):
+    K = np.tan(np.pi * fc / fs)
+    if Order == 1:
+        if Mode == "LP":                          
+            a0 = 0
+            a1 = (K-1) / (K+1)
+            a2 = 0
+            b0 = K / (K + 1)
+            b1 = K / (K + 1)
+            b2 = 0
+        elif Mode == "HP":                            
+            a0 = 0
+            a1 = (K-1) / (K+1)
+            a2 = 0    
+            b0 = 1 / (K+1)
+            b1 = -1 / (K+1)
+            b2 = 0
+        elif Mode == "AP":                           
+            a1 = (K-1) / (K + 1)
+            a2 = 0
+            b0 = (K-1) / (K + 1)
+            b1 = 1
+            b2 = 0 
+    elif Order == 2:
+        if Mode == "LP":                            
+            b0 = ((K**2) * Q) / ((K**2) + Q + K + Q)
+            b1 = (2*(K**2) * Q) / ((K**2) * Q + K + Q)
+            b2 = ((K**2) * Q) / ((K**2) * Q + K + Q)
+            a1 = (2*Q * ((K**2) - 1)) / ((K**2) * Q + K + Q)
+            a2 = ((K**2) * Q - K + Q) / ((K**2) * Q + K + Q)
+        elif Mode == "HP":                          
+            b0 = (Q) / ((K**2) * Q + K + Q)
+            b1 = - (2*Q)/((K**2) * Q + K + Q)
+            b2 = (Q) / ((K**2)* Q + K +Q)
+            a1 = (2*Q * ((K**2) - 1)) / ((K**2) * Q + K + Q)
+            a2 = ((K**2) * Q - K + Q) / ((K**2) * Q + K + Q)
+        elif Mode == "BP":                          
+            b0 = (K) / ((K**2) * Q + K + Q)
+            b1 = 0
+            b2 = - (K) / ((K**2) * Q + K + Q)
+            a1 = (2*Q * ((K**2) - 1)) / ((K**2) * Q + K + Q)
+            a2 = ((K**2) * Q - K + Q) / ((K**2) * Q + K + Q)   
+        elif Mode == "BR":                          
+            a1 = (2*Q * ((K**2) - 1)) / ((K**2) * Q + K + Q)
+            a2 = (K**2 * Q - K + Q) / ((K**2) * Q + K + Q)
+            b0 = (Q*(1+K**2)) / ((K**2) * Q + K + Q)
+            b1 = (2*Q*((K**2) -1)) / ((K**2) * Q + K + Q)
+            b2 = (Q * (1 + K**2)) / ((K**2) * Q + K + Q)
+        elif Mode == "AP":                         
+            a1 = (2*Q * ((K**2) - 1)) / ((K**2) * Q + K + Q)
+            a2 = ((K**2) * Q - K + Q) / ((K**2) * Q + K + Q)
+            b0 = ((K**2) * Q - K + Q) / ((K**2) + K + Q)
+            b1 = (2 * Q * ((K**2) - 1))/(((K**2)*Q)+K+Q)
+            b2 = 1
+        pass
+    xh = np.zeros(len(x))
+    y = np.zeros(len(x))
+    for n in range(0,len(x)):
+        xh[n] = x[n] - a1 * xh[n-1] - a2 * xh[n-2]
+        y[n] = b0 * xh[n] + b1 * xh[n-1] + b2 * xh[n-2]
     return y
-
-f = 6e03
-fs = 48000
-#x = [np.sin(2*np.pi*i*f) for i in np.arange(0,1,1/fs)]
-x = [99999999999,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,]
-#x = np.random.random(48000)
-y = Filter(x)
 
 
 plt.magnitude_spectrum(x)
