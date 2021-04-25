@@ -1,0 +1,51 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# 0 - Signal erstellen
+fs = 48000
+t = 3
+f = 2500
+
+x_range = np.arange(0,t,1/fs)
+x = np.sin(2*np.pi*f*x_range)
+
+# plot time signal:
+fig, ax = plt.subplots(nrows=3, ncols=2, figsize=(7, 7))
+    
+
+N = 256
+ax[0, 0].set_title("x(t) - Time Signal")
+ax[0, 0].plot(x_range[0:N], x[0:N], color='C0')
+ax[0, 0].set_xlabel("Time in [s]")
+ax[0, 0].set_ylabel("Amplitude")
+
+# plot different spectrum types:
+ax[0,1].psd(x)
+ax[0,1].set_title("Power Spectral Density")
+
+
+ax[1, 0].set_title("Magnitude Spectrum")
+ax[1, 0].magnitude_spectrum(x, Fs=fs, color='C1')
+ax[1,0].grid()
+ax[1,0].set_xlim(0,20e03)
+
+ax[1, 1].set_title("Log. Magnitude Spectrum")
+ax[1, 1].magnitude_spectrum(x, Fs=fs, scale='dB', color='C1')
+ax[1,1].grid()
+ax[1,1].set_xlim(0,20e03)
+
+ax[2, 0].set_title("Phase Spectrum ")
+ax[2, 0].phase_spectrum(x, Fs=fs, color='C2')
+ax[2,0].grid()
+
+
+ax[2, 1].set_title("Angle Spectrum")
+ax[2, 1].angle_spectrum(x, Fs=fs, color='C2')
+ax[2,1].grid()
+
+
+#axs[0, 1].remove()  # don't display empty ax
+
+fig.tight_layout()
+plt.show()
