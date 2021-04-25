@@ -1,0 +1,31 @@
+# Überlagerung von Signalen
+import numpy as np
+
+# Signal erstellen
+t = 3
+fs = 48000
+
+x_range = np.arange(0,t,1/fs)
+
+
+# Kohärente Überlagerung
+xk_A = np.sin(2*np.pi*x_range)
+xk_B = np.sin(2*np.pi*x_range)
+xk_uber = xk_A + xk_B
+
+Ek_A = np.sum(xk_A**2)
+Ek_uber = np.sum(xk_uber**2)
+dBk = 10*np.log10(Ek_uber/Ek_A)
+
+print("Überlagerung: Kohärente Signale {:.2f} dB".format(dBk))
+
+# Inkohärente Überlagerung
+xi_A = np.sin(2*np.pi*x_range)
+xi_B = np.sin(2*np.pi*x_range+np.pi/2)
+xi_uber = xi_A + xi_B
+
+Ei_A = np.sum(xi_A**2) * 1/fs
+Ei_uber = np.sum(xi_uber**2) * 1/fs
+dBi = 10 * np.log10(Ei_uber/Ei_A)
+
+print("Überlagerung: Inkohärente Signale {:.2f} dB".format(dBi))
