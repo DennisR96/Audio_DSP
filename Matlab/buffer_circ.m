@@ -1,3 +1,4 @@
+%% Buffer: Circular
 function [y, buffer] = buffer_circ(x,buffer,delay,n)
 len = length(buffer);                   % Length Buffer
 indexC = mod(n-1,len) + 1;              % Circular Index
