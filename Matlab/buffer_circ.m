@@ -7,12 +7,14 @@ buffer(indexC,1) = x;                   % Buffer
 end
 
 % %%Example
-% clc; clear;                     % Clear Console
-% x = [1,0,0,0,0,0,0];            % Input
-% buffer = zeros(6,1);            % Buffer
-% delay = 4;                      % Delay
-% N = length(x);                  % Samples: Input
-% y = zeros(N,1);                 % Output
+% clc; clear;                         % Clear Console
+% x = [1,0,0,0,0,0,0]';               % Input: (N,1)
+% N = length(x);                      % Array Size
+% N_b = 6;                            % Buffer Size
+% buffer = zeros(N_b,1);              % Buffer
+% delay = 3;                          % Delay
+% y = zeros(N,1);                     % Output: (N,1)
 % for n = 1:N
-%     [y(n,1),buffer] = buffer_circ(x(1,n),buffer,delay,n);
+%     [y(n,1),buffer] = buffer_circ(x(n,1),buffer,delay,n);
 % end 
+
