@@ -1,0 +1,9 @@
+function [out, buffer] = filter_fbcf(in,buffer,n,delay,g)
+% Circular Buffer
+len = length(buffer);
+indexC = mod(n-1,len) + 1;
+indexD = mod(n-delay-1,len) + 1;
+% Feedback Comb Filter
+out = buffer(indexD,1);
+buffer(indexC,1) = in + g*buffer(indexD,1);
+end
