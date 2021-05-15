@@ -31,12 +31,19 @@ s_3 = 0;
 s_4 = 0;
 
 for n=1:length(x)
+    %MIMO
+    y_1(n) = c(1) * s_1(n) + d * x(n);
+    y_2(n) = c(2) * s_2(n) + d * x(n);
+    y_3(n) = c(3) * s_3(n) + d * x(n);
+    y_4(n) = c(4) * s_4(n) + d * x(n);
+    
+    %SISO
     y(n) = c(1) * s_1(n) + d * x(n)...
         + c(2) * s_2(n) + d * x(n) ...
         + c(3) * s_3(n) + d * x(n) ...
         + c(4) * s_4(n) + d * x(n);
     
-    
+    % Matrix
     s_1(n+M(1)) = a(1,1) * s_1(n) + b(1) * x(n) ...
         + a(1,2) * s_2(n) + b(1) * x(n) ...
         + a(1,3) * s_3(n) + b(1) * x(n) ...
@@ -58,6 +65,5 @@ for n=1:length(x)
         + a(4,4) * s_4(n) + b(3) * x(n);
 end
 
-y = y / max(y);
-sound(y,fs);
+y_MIMO = y_1 + y_2 + y_3 + y_4
 plot(y)
