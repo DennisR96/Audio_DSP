@@ -1,0 +1,57 @@
+% 0. Preamble
+% - - - - - - - - - - - - - -  - - - - - - - - - - - - - -  - - - - - - - - - - - - - -  - - - - - - - - - - - - - -
+\documentclass[12pt, letter]{article}			% [Fontsize, Page-Type]
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}							        % Package: Grafiken
+
+% Information
+\title{Title: Example Code for Latex}	    % Title
+\author{Author: Dennis Räk}						    % Author
+\date{Date: 16. Mai 2021}							    % Date
+
+%% 1. Cover Page
+% - - - - - - - - - - - - - -  - - - - - - - - - - - - - -  - - - - - - - - - - - - - -  - - - - - - - - - - - - - -
+\begin{document}
+		\maketitle
+
+		Welcome to my first  \LaTeX{} Document. It contains some learning examples
+
+%% 2. Page Two
+% - - - - - - - - - - - - - -  - - - - - - - - - - - - - -  - - - - - - - - - - - - - -  - - - - - - - - - - - - - -
+\newpage{}									        % Create a new Page
+%% Section & Chapters
+%\part{}										        % -1 : Part (Book Only)
+%\chapter{}									        % 0: Chapter (Book Only)
+\section{Section}							      % 1: Section 
+\subsection{Subsection} 			      % 2: Subsection 
+\subsubsection{Subsubsection}	      % 3: Subsubsection
+\paragraph{Paragraph}					      % 4: Paragraph
+\subparagraph{Subparagraph}		      % 5: Subparagraph
+
+\section{Text Manipulation}
+	 \textbf{Bold}								    % Text: Bold
+	 \textit{Italics} 								% Text: Italics
+	 \underline{Underline}						% Text: Underline
+	 \emph{Emphasis}							    % Text: Emphasising
+	 %\href{https:\\www.google.com}
+	 \\										            % Line Breaker
+\section{Creating a List}
+	\textbf{Unordered List}
+	\begin{itemize}								    % Liste: Unordered
+		\item Item A
+		\item Item B
+		\item Item C
+	\end{itemize}
+	\textbf{Ordered List}							% Liste: Ordered
+	\begin {enumerate}
+		\item Item 1
+		\item Item 2
+	\end{enumerate}
+	
+\newpage{}
+
+\section{Mathematics}
+
+\end{document}
