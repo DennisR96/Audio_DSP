@@ -1,0 +1,18 @@
+def Allpass(x,g,M):
+    v = 0                       # Int: Laufvariable
+    buffer = np.zeros(M)
+    y = np.zeros(len(x))
+    for n in range(0, len(x)):
+        A = x[n] + v
+        B = A * -g 
+         # Buffer
+        indexC = np.mod(n-1,len(buffer))
+        indexD = np.mod(n-M-1,len(buffer)) 
+        z_M = buffer[indexD]
+        buffer[indexC] = y[n]
+        C_M = z_M          
+        v = C_M * g
+        
+        # Return
+        y[n] = C_M + B
+    return y
