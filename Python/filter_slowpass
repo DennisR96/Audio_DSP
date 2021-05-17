@@ -1,0 +1,15 @@
+def filter_slowpass(x):
+    buffer = np.zeros(1)
+    M = 1
+    y = np.zeros(len(x))
+    
+    for n in range(0,len(x)):
+        # Buffer
+        indexC = np.mod(n-1,len(buffer))
+        indexD = np.mod(n-M-1,len(buffer))
+        x_M1 = buffer[indexD]
+        buffer[indexC] = x[n]
+        
+        y[n] = x[n] + x_M1
+        
+    return y
