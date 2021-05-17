@@ -1,0 +1,4 @@
+def Distortion(y,N):
+    y = np.arcsin(np.clip(y,-N,N))
+    y = y / np.max(y)
+    return y
