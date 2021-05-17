@@ -1,0 +1,14 @@
+def filter_fbcf(x,b0,am,M):
+    v = 0                       # Int: Variable
+    buffer = np.zeros(M)        # Int: Buffer
+    y = np.zeros(len(x))        # Int:
+    for n in range(0, len(x)):
+        # Difference Equation
+        y[n] = x[n] * b0 + v    
+        # Buffer
+        indexC = np.mod(n-1,len(buffer))
+        indexD = np.mod(n-M-1,len(buffer)) 
+        z_M = buffer[indexD]
+        buffer[indexC] = y[n]
+        v = z_M * -am
+    return y
