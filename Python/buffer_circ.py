@@ -5,3 +5,5 @@ def buffer_circular(x,buffer,delay,n):
     y[n] = buffer[indexD]
     buffer[indexC] = x[n]
     return y[n], buffer
+
+# Ciruclar Buffer
