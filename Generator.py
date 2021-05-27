@@ -1,6 +1,8 @@
 import numpy as np
 import scipy.signal as signal
 
+# Version control test
+
 def Sinus(amp,f,fs,t):
     x = np.arange(0,t,1/fs)
     y = amp * np.sin(2*np.pi*f*x)
