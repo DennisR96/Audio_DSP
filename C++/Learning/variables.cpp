@@ -2,12 +2,12 @@
 #include <iostream>
 #include <string>
 
-bool boole = true;
-char character = 'A';
-const int konstante = 24;
-double doppel = 12.345678;
-float floating = 12.345678;
-int integer = 123;
+bool boole = true;                                          // Boolean
+char character = 'A';                                       // Character
+const int konstante = 24;                                   // Constant
+double doppel = 12.345678;                                  // Double (Float)
+float floating = 12.345678;                                 // Float
+int integer = 123;                                          // Integer
 
 std::string text = "Das ist ein Text";
 

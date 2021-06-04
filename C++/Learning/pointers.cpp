@@ -2,6 +2,9 @@
 Pointers:
 Variable that holds a memory adress
 
+[&]                 Adress Operator                 Referenz zu einer Adresse
+[*]                 Dereference Operator            Löst die Referenz auf
+
 (&)Adress           (*)Value                        Code                            Bedeutung
 100 ["c"]           5                               int c = *b;                     c ist gleich dem Wert von Adresse b
 101
@@ -9,8 +12,12 @@ Variable that holds a memory adress
 103
 104 ["b"]           102                             int* b = &a;                    b ist ein int Pointer zu Adresse a
 
-*/ 
+type nameA;             Declare Variable 
+type * nameB =;         Declare a Pointer
+type nameC = *nameB     Declare 
 
+
+*/ 
 #include <iostream>
 
 void array_pointer(){
